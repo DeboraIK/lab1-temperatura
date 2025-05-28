@@ -41,13 +41,13 @@ func WeatherHandler(w http.ResponseWriter, r *http.Request) {
 
 	cepParam := r.URL.Query().Get("cep")
 	if !validateCEP(cepParam) {
-		http.Error(w, "cep invalido", http.StatusUnprocessableEntity)
+		http.Error(w, "invalid zipcode", http.StatusUnprocessableEntity)
 		return
 	}
 
 	cepData, err := BuscaCEP(cepParam)
 	if err != nil || cepData.Localidade == "" {
-		http.Error(w, "localidade nao encontrada", http.StatusNotFound)
+		http.Error(w, "cannot find zipcode", http.StatusNotFound)
 		return
 	}
 
